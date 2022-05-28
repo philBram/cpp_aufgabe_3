@@ -3,18 +3,14 @@
 
 #include <QMainWindow>
 #include "qstringlogger.h"
-#include "appone.h"
 
-class MainWindow : public QMainWindow, public QStringLogger, public testing::appOne
+class MainWindow : public QMainWindow, public QStringLogger
 {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void testing() const override;
-
-signals:
 
 private slots:
     void appOneClicked() const;
@@ -22,16 +18,24 @@ private slots:
     void appTreeClicked() const;
     void aboutClicked() const;
     void helpClicked() const;
+    void updatesClicked() const;
+    void checkForUpdates() const;
 
 private:
+    QString appOneName;
+    QString appTwoName;
+    QString appTreeName;
+
     QSize sizeHint() const override;
 
     QAction *appOneAction;
     QAction *appTwoAction;
     QAction *appTreeAction;
-    QAction *quitAction;
-    QAction *aboutAction;
+
     QAction *helpAction;
+    QAction *aboutAction;
+    QAction *updatesAction;
+    QAction *quitAction;
 
     void createActions() const;
 };

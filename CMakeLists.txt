@@ -47,10 +47,10 @@ else()
     endif()
 endif()
 
-add_subdirectory(appOne)
-include_directories(appOne)
+add_subdirectory(formulasLib)
+include_directories(formulasLib)
 
-target_link_libraries(Versuch_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets appOne)
+target_link_libraries(Versuch_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets formulasLib)
 
 set_target_properties(Versuch_3 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
