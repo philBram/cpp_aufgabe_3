@@ -18,10 +18,10 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
-        abstractlogging.cpp
-        abstractlogging.h
-        qstringlogger.h
-        qstringlogger.cpp
+        Logger/abstractlogging.cpp
+        Logger/abstractlogging.h
+        Logger/qstringlogger.h
+        Logger/qstringlogger.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

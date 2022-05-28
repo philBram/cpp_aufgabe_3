@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "qstringlogger.h"
+#include "Logger/qstringlogger.h"
 
 class MainWindow : public QMainWindow, public QStringLogger
 {

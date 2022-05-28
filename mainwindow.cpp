@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
       appTwoName{"appTwo"},
       appTreeName{"appTree"}
 {
+    logOut("app opened");
+
     QString appInfoText {"This application is intended to be as versatile as possible by providing all kinds of different apps."};
 
     QString fontFamily {"Time"};
@@ -77,6 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    logOut("app closed");
 }
 
 void MainWindow::createActions() const {
@@ -96,15 +99,21 @@ QSize MainWindow::sizeHint() const {
 
 void MainWindow::appOneClicked() const
 {
-    QString logMsg {"app one clicked"};
+    QString logMsg {appOneName + " clicked"};
+    QMainWindow *appOne {new QMainWindow};
 
     statusBar()->showMessage(logMsg, 3000);
     logOut(std::move(logMsg));
+
+    appOne->setWindowTitle(appOneName);
+    appOne->setAttribute(Qt::WA_DeleteOnClose);
+    appOne->setGeometry(500, 500, 500, 500);
+    appOne->show();
 }
 
 void MainWindow::appTwoClicked() const
 {
-    QString logMsg {"app two clicked"};
+    QString logMsg {appTwoName + " clicked"};
 
     statusBar()->showMessage(logMsg, 3000);
     logOut(std::move(logMsg));
@@ -112,7 +121,7 @@ void MainWindow::appTwoClicked() const
 
 void MainWindow::appTreeClicked() const
 {
-    QString logMsg {"app tree clicked"};
+    QString logMsg {appTreeName + " clicked"};
 
     statusBar()->showMessage(logMsg, 3000);
     logOut(std::move(logMsg));
