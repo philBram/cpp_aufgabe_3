@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
         Logger/qstringlogger.h
         Logger/stringlogger.cpp
         Logger/stringlogger.h
+        appOne/appone.cpp
+        appOne/appone.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

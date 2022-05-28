@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "mathFormulas.h"
+#include "appOne/appone.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QStatusBar>
@@ -8,8 +8,6 @@
 #include <QPalette>
 #include <QFont>
 #include <QTimer>
-
-using namespace formulas;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -100,15 +98,15 @@ QSize MainWindow::sizeHint() const {
 void MainWindow::appOneClicked() const
 {
     QString logMsg {appOneName + " clicked"};
-    QMainWindow *appOne {new QMainWindow};
+    AppOne *app {new AppOne};
 
     statusBar()->showMessage(logMsg, 3000);
     logOut(std::move(logMsg));
 
-    appOne->setWindowTitle(appOneName);
-    appOne->setAttribute(Qt::WA_DeleteOnClose);
-    appOne->setFixedSize(500, 500);
-    appOne->show();
+    app->setWindowTitle(appOneName);
+    app->setAttribute(Qt::WA_DeleteOnClose);
+    app->setFixedSize(500, 500);
+    app->show();
 }
 
 void MainWindow::appTwoClicked() const

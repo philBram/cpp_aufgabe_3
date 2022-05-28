@@ -7,5 +7,5 @@ QStringLogger::QStringLogger(QString &&initalMsg): AbstractLogging<QString>{std:
 }
 
 void QStringLogger::logOut(QString &&logMsg) const {
-    qDebug() << QTime::currentTime().toString() + "  " + initalMsg + ": " + logMsg;
+    qDebug() << QTime::currentTime().toString() + ":  " + initalMsg + ": " + logMsg;
 }
