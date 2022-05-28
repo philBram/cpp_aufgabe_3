@@ -10,6 +10,7 @@ public:
     StringLogger(std::string &&initialMsg);
 
     void logOut(std::string &&) const override;
+    std::string logOut() const override;
 };
 
 #endif // STRINGLOGGER_H

@@ -11,6 +11,7 @@ public:
     explicit QStringLogger(QString &&);
 
     void logOut(QString &&) const override;
+    QString logOut() const override;
 };
 
 #endif // QSTRINGLOGGER_H

@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include "Logger/qstringlogger.h"
 
-class MainWindow : public QMainWindow, public QStringLogger
+class MainWindow :
+        public QMainWindow,
+        public QStringLogger
 {
     Q_OBJECT
 
@@ -16,8 +18,8 @@ private slots:
     void appOneClicked() const;
     void appTwoClicked() const;
     void appTreeClicked() const;
-    void aboutClicked() const;
     void helpClicked() const;
+    void aboutClicked() const;
     void updatesClicked() const;
     void checkForUpdates() const;
 
@@ -38,5 +40,8 @@ private:
     QAction *quitAction;
 
     void createActions() const;
+
+    void detailsOutMsg(QString &&) const;
+    void detailsOutMsg() const;
 };
 #endif // MAINWINDOW_H
