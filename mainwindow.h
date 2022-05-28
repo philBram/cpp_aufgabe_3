@@ -15,16 +15,22 @@ public:
 signals:
 
 private slots:
+    void appOneClicked() const;
+    void appTwoClicked() const;
+    void appTreeClicked() const;
+    void aboutClicked() const;
+    void helpClicked() const;
 
 private:
     QSize sizeHint() const override;
+
     QAction *appOneAction;
     QAction *appTwoAction;
     QAction *appTreeAction;
     QAction *quitAction;
+    QAction *aboutAction;
+    QAction *helpAction;
 
-    void appOneClicked() const;
-    void appTwoClicked() const;
-    void appTreeClicked() const;
+    void createActions() const;
 };
 #endif // MAINWINDOW_H
