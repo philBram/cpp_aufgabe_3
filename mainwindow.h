@@ -3,14 +3,16 @@
 
 #include <QMainWindow>
 #include "qstringlogger.h"
+#include "appone.h"
 
-class MainWindow : public QMainWindow, public QStringLogger
+class MainWindow : public QMainWindow, public QStringLogger, public testing::appOne
 {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void testing() const override;
 
 signals:
 

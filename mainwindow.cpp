@@ -6,6 +6,7 @@
 #include <QTextBrowser>
 #include <QPalette>
 #include <QFont>
+#include "appone.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), QStringLogger{"MainWindow"}

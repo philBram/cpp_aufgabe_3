@@ -47,7 +47,10 @@ else()
     endif()
 endif()
 
-target_link_libraries(Versuch_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+add_subdirectory(appOne)
+include_directories(appOne)
+
+target_link_libraries(Versuch_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets appOne)
 
 set_target_properties(Versuch_3 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
