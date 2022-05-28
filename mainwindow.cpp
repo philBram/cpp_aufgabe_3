@@ -107,7 +107,7 @@ void MainWindow::appOneClicked() const
 
     appOne->setWindowTitle(appOneName);
     appOne->setAttribute(Qt::WA_DeleteOnClose);
-    appOne->setGeometry(500, 500, 500, 500);
+    appOne->setFixedSize(500, 500);
     appOne->show();
 }
 
