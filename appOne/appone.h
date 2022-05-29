@@ -46,8 +46,12 @@ private:
     void createMathFunctionsInputs();
     QList<QDoubleSpinBox *> createSquareMathFunctionsSpinBoxes();
     QList<QDoubleSpinBox *> createRectangleMathFunctionsSpinBoxes();
+    QList<QDoubleSpinBox *> createTrapezoidAreaMathFunctionsSpinBoxes();
+    QList<QDoubleSpinBox *> createTrapezoidPerimeterMathFunctionsSpinBoxes();
     QList<QLabel *> createSquareMathFunctionsLabels();
     QList<QLabel *> createRectangleMathFunctionsLabels();
+    QList<QLabel *> createTrapezoidAreaMathFunctionsLabels();
+    QList<QLabel *> createTrapezoidPerimeterMathFunctionsLabels();
     void createMathFunctionsSignals() const;
     void createMenuActions() const;
 
@@ -55,15 +59,21 @@ private:
     void perimeterOfSquareClicked() const;
     void areaOfRectangleClicked() const;
     void perimeterOfRectangleClicked() const;
+    void areaOfTrapezoidClicked() const;
+    void perimeterOfTrapezoidClicked() const;
 
     void calculateSquareArea() const;
-    void calculateSquarePermit() const;
+    void calculateSquarePerimeter() const;
     void calculateRectangleArea() const;
-    void calculateRectanglePermit() const;
+    void calculateRectanglePerimeter() const;
+    void calculateTrapezoidArea() const;
+    void calculateTrapezoidPerimeter() const;
 
     void hideAllItems() const;
     void showAllSquareItems() const;
     void showAllRectangleItems() const;
+    void showAllTrapezoidAreaItems() const;
+    void showAllTrapezoidPerimeterItems() const;
 };
 
 #endif // APPONE_H

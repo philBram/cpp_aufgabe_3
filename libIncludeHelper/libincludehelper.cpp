@@ -26,3 +26,13 @@ double libIncludeHelper::perimeterOfRectangle(const double length, const double 
 {
     return MathFormulas::perimeterOfRectangle(length, width);
 }
+
+double libIncludeHelper::areaOfTrapezoid(const double longBase, const double shortBase, const double height)
+{
+    return MathFormulas::areaOfTrapezoid(longBase, shortBase, height);
+}
+
+double libIncludeHelper::perimeterOfTrapezoid(const double longBase, const double shortBase, const double sideA, const double sideB)
+{
+    return MathFormulas::perimeterOfTrapezoid(longBase, shortBase, sideA, sideB);
+}

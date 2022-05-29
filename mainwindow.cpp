@@ -12,7 +12,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       QStringLogger{"MainWindow"},
-      appOneName{"appOne"},
+      appOneName{"MathCalc"},
       appTwoName{"appTwo"},
       appTreeName{"appTree"}
 {

@@ -5,12 +5,14 @@
 #include "abstractlogging.h"
 
 
-class QStringLogger: public AbstractLogging<QString>
+class QStringLogger:
+        public AbstractLogging<QString>
 {
 public:
-    explicit QStringLogger(QString &&);
+    explicit QStringLogger(QString &&, QString &&filePath="logOut.log");
 
     void logOut(QString &&) const override;
+    void logOut(QString &&, QString &&) const override;
     QString logOut() const override;
 };
 
