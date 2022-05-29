@@ -72,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     helpMenu->addAction(updatesAction);
     helpMenu->addAction(quitAction);
 
-    createActions();
+    createMenuActions();
 }
 
 MainWindow::~MainWindow()
@@ -80,7 +80,7 @@ MainWindow::~MainWindow()
     logOut("app closed");
 }
 
-void MainWindow::createActions() const {
+void MainWindow::createMenuActions() const {
     connect(appOneAction, &QAction::triggered, this, &MainWindow::appOneClicked);
     connect(appTwoAction, &QAction::triggered, this, &MainWindow::appTwoClicked);
     connect(appTreeAction, &QAction::triggered, this, &MainWindow::appTreeClicked);
@@ -95,13 +95,13 @@ QSize MainWindow::sizeHint() const {
     return QSize(500, 500);
 }
 
-void MainWindow::appOneClicked() const
+void MainWindow::appOneClicked()
 {
     QString logMsg {appOneName + " clicked"};
 
     detailsOutMsg(std::move(logMsg));
 
-    AppOne *app {new AppOne};
+    AppOne *app {new AppOne(this)};
 
     app->setWindowTitle(appOneName);
     app->setAttribute(Qt::WA_DeleteOnClose);
@@ -109,14 +109,14 @@ void MainWindow::appOneClicked() const
     app->show();
 }
 
-void MainWindow::appTwoClicked() const
+void MainWindow::appTwoClicked()
 {
     QString logMsg {appTwoName + " clicked"};
 
     detailsOutMsg(std::move(logMsg));
 }
 
-void MainWindow::appTreeClicked() const
+void MainWindow::appTreeClicked()
 {
     QString logMsg {appTreeName + " clicked"};
 

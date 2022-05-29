@@ -15,9 +15,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void appOneClicked() const;
-    void appTwoClicked() const;
-    void appTreeClicked() const;
+    void appOneClicked();
+    void appTwoClicked();
+    void appTreeClicked();
     void helpClicked() const;
     void aboutClicked() const;
     void updatesClicked() const;
@@ -39,7 +39,7 @@ private:
     QAction *updatesAction;
     QAction *quitAction;
 
-    void createActions() const;
+    void createMenuActions() const;
 
     void detailsOutMsg(QString &&) const;
     void detailsOutMsg() const;
