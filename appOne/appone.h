@@ -52,9 +52,14 @@ private:
     void createMenuActions() const;
 
     void areaOfSquareClicked() const;
-    void permitOfSquareClicked() const;
+    void perimeterOfSquareClicked() const;
     void areaOfRectangleClicked() const;
-    void permitOfRectangleClicked() const;
+    void perimeterOfRectangleClicked() const;
+
+    void calculateSquareArea() const;
+    void calculateSquarePermit() const;
+    void calculateRectangleArea() const;
+    void calculateRectanglePermit() const;
 
     void hideAllItems() const;
     void showAllSquareItems() const;

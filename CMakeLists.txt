@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         Logger/stringlogger.h
         appOne/appone.cpp
         appOne/appone.h
+        libIncludeHelper/libincludehelper.cpp
+        libIncludeHelper/libincludehelper.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

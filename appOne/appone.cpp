@@ -6,6 +6,7 @@
 #include <QStatusBar>
 #include <QLabel>
 #include <QFont>
+#include "libIncludeHelper/libincludehelper.h"
 
 AppOne::AppOne(QWidget *parent)
     : QMainWindow{parent},
@@ -16,7 +17,7 @@ AppOne::AppOne(QWidget *parent)
     QString helpMenuName {"Help"};
 
     QString helpName {"Help"};
-    QString aboutName {"About AppHarbor"};
+    QString aboutName {"About MathCalc"};
     QString quitName {"Quit"};
 
     helpAction = new QAction(this);
@@ -72,6 +73,7 @@ AppOne::AppOne(QWidget *parent)
     createMathFunctionsSignals();
 
     comboBoxItemChanged(std::move(mathFunctions->currentIndex()));
+    mathFunctionResultCalc();
 
     createMenuActions();
 }
@@ -86,9 +88,9 @@ void AppOne::createMathFunctionsNames() const
     QList<QString> mathFunctionNames;
 
     mathFunctionNames.emplace_back("area of square");
-    mathFunctionNames.emplace_back("permit of square");
+    mathFunctionNames.emplace_back("perimeter of square");
     mathFunctionNames.emplace_back("area of rectangle");
-    mathFunctionNames.emplace_back("permit of rectangle");
+    mathFunctionNames.emplace_back("perimeter of rectangle");
 
     mathFunctions->addItems(mathFunctionNames);
 }
@@ -144,6 +146,8 @@ QList<QLabel *> AppOne::createSquareMathFunctionsLabels()
     squareLengthLabel->setText("Length");
     squareLengthLabel->move(50, 160);
 
+    squareLabels.emplace_back(squareLengthLabel);
+
     return squareLabels;
 }
 
@@ -159,6 +163,9 @@ QList<QLabel *> AppOne::createRectangleMathFunctionsLabels()
     rectangleWidthLabel->setText("Width");
     rectangleWidthLabel->move(50, 260);
 
+    rectangleLabels.emplace_back(rectangleLengthLabel);
+    rectangleLabels.emplace_back(rectangleWidthLabel);
+
     return rectangleLabels;
 }
 
@@ -167,11 +174,10 @@ void AppOne::createMathFunctionsSignals() const
     connect(mathFunctions, &QComboBox::currentIndexChanged, this, &AppOne::comboBoxItemChanged);
 
     for (QList<QDoubleSpinBox *> const &inputs : mathFunctionsSpinBoxes->values().toList()) {
-        for (QDoubleSpinBox * const &input : inputs) {
+        for (QDoubleSpinBox const * const &input : inputs) {
             connect(input, &QDoubleSpinBox::valueChanged, this, &AppOne::mathFunctionResultCalc);
         }
     }
-
 }
 
 void AppOne::createMenuActions() const
@@ -213,24 +219,35 @@ void AppOne::comboBoxItemChanged(int const index) const
         areaOfSquareClicked();
         break;
     case 1:
-        permitOfSquareClicked();
+        perimeterOfSquareClicked();
         break;
     case 2:
         areaOfRectangleClicked();
         break;
     case 3:
-        permitOfRectangleClicked();
+        perimeterOfRectangleClicked();
         break;
     default:
         break;
     }
+
+    mathFunctionResultCalc();
 }
 
 void AppOne::mathFunctionResultCalc() const
 {
     switch (mathFunctions->currentIndex()) {
     case 0:
-        mathFunctionResult->setText("");
+        calculateSquareArea();
+        break;
+    case 1:
+        calculateSquarePermit();
+        break;
+    case 2:
+        calculateRectangleArea();
+        break;
+    case 3:
+        calculateRectanglePermit();
         break;
     default:
         break;
@@ -248,7 +265,7 @@ void AppOne::areaOfSquareClicked() const
     showAllSquareItems();
 }
 
-void AppOne::permitOfSquareClicked() const
+void AppOne::perimeterOfSquareClicked() const
 {
     QString msg {"permitOfSquares clicked"};
 
@@ -270,7 +287,7 @@ void AppOne::areaOfRectangleClicked() const
     showAllRectangleItems();
 }
 
-void AppOne::permitOfRectangleClicked() const
+void AppOne::perimeterOfRectangleClicked() const
 {
     QString msg {"permitOfRectangles clicked"};
 
@@ -279,6 +296,46 @@ void AppOne::permitOfRectangleClicked() const
 
     hideAllItems();
     showAllRectangleItems();
+}
+
+void AppOne::calculateSquareArea() const
+{
+    double squareLength {mathFunctionsSpinBoxes->value("squares").at(0)->value()};
+
+    double squareArea {libIncludeHelper::areaOfSquare(squareLength)};
+
+    mathFunctionResult->setText(QString::number(std::move(squareArea)));
+}
+
+void AppOne::calculateSquarePermit() const
+{
+    double squareLength {mathFunctionsSpinBoxes->value("squares").at(0)->value()};
+
+    double squarePermit {libIncludeHelper::perimeterOfSquare(squareLength)};
+
+    mathFunctionResult->setText(QString::number(std::move(squarePermit)));
+
+}
+
+void AppOne::calculateRectangleArea() const
+{
+    double rectangleLength {mathFunctionsSpinBoxes->value("rectangles").at(0)->value()};
+    double rectangleWidth {mathFunctionsSpinBoxes->value("rectangles").at(1)->value()};
+
+    double rectangleArea {libIncludeHelper::areaOfRectangle(std::move(rectangleLength), std::move(rectangleWidth))};
+
+    mathFunctionResult->setText(QString::number(std::move(rectangleArea)));
+}
+
+void AppOne::calculateRectanglePermit() const
+{
+    double rectangleLength {mathFunctionsSpinBoxes->value("rectangles").at(0)->value()};
+    double rectangleWidth {mathFunctionsSpinBoxes->value("rectangles").at(1)->value()};
+
+    double rectanglePerimeter {libIncludeHelper::perimeterOfRectangle(std::move(rectangleLength), std::move(rectangleWidth))};
+
+    mathFunctionResult->setText(QString::number(std::move(rectanglePerimeter)));
+
 }
 
 void AppOne::hideAllItems() const
