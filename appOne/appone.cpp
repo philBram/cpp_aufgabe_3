@@ -10,7 +10,13 @@
 
 AppOne::AppOne(QWidget *parent)
     : QMainWindow{parent},
-      QStringLogger{"AppOne"}
+      QStringLogger{"AppOne"},
+      squareAreaCategoryName {"squaresArea"},
+      squarePerimeterCategoryName {"squaresPerimeter"},
+      rectangleAreaCategoryName {"rectanglesArea"},
+      rectanglePerimeterCategoryName {"rectanglesPerimeter"},
+      trapezoidAreaCategoryName {"trapezoidArea"},
+      trapezoidPerimeterCategoryName {"trapezoidPerimeter"}
 {
     logOut("app opened");
 
@@ -42,7 +48,7 @@ AppOne::AppOne(QWidget *parent)
 
     dynamic_cast<QLabel *>(appHeader)->setText("Math Functions");
     dynamic_cast<QLabel *>(appHeader)->setGeometry(0, 0, 150, 20);
-    dynamic_cast<QLabel *>(appHeader)->setPalette(std::move(headerPalette));
+    dynamic_cast<QLabel *>(appHeader)->setPalette(headerPalette);
     dynamic_cast<QLabel *>(appHeader)->move(50, 70);
 
     QFont resultFont;
@@ -73,7 +79,6 @@ AppOne::AppOne(QWidget *parent)
     createMathFunctionsSignals();
 
     comboBoxItemChanged(std::move(mathFunctions->currentIndex()));
-    mathFunctionResultCalc();
 
     createMenuActions();
 }
@@ -94,32 +99,31 @@ void AppOne::createMathFunctionsNames() const
     mathFunctionNames.emplace_back("area of trapezoid");
     mathFunctionNames.emplace_back("perimeter of trapezoid");
 
-    mathFunctions->addItems(mathFunctionNames);
+    mathFunctions->addItems(std::move(mathFunctionNames));
 }
 
 void AppOne::createMathFunctionsInputs()
 {
-    QString squareCategoryName {"squares"};
-    QString rectangleCategoryName {"rectangles"};
-    QString trapezoidAreaCategoryName {"trapezoidArea"};
-    QString trapezoidPerimeterCategoryName {"trapezoidPerimeter"};
-
     mathFunctionsSpinBoxes = std::make_shared<QMap<QString, QList<QDoubleSpinBox *>>>();
 
-    mathFunctionsSpinBoxes->insert(squareCategoryName, std::move(createSquareMathFunctionsSpinBoxes()));
-    mathFunctionsSpinBoxes->insert(rectangleCategoryName, std::move(createRectangleMathFunctionsSpinBoxes()));
+    mathFunctionsSpinBoxes->insert(squareAreaCategoryName, std::move(createSquareAreaPerimeterMathFunctionsSpinBoxes()));
+    mathFunctionsSpinBoxes->insert(squarePerimeterCategoryName, std::move(createSquareAreaPerimeterMathFunctionsSpinBoxes()));
+    mathFunctionsSpinBoxes->insert(rectangleAreaCategoryName, std::move(createRectangleAreaPerimeterMathFunctionsSpinBoxes()));
+    mathFunctionsSpinBoxes->insert(rectanglePerimeterCategoryName, std::move(createRectangleAreaPerimeterMathFunctionsSpinBoxes()));
     mathFunctionsSpinBoxes->insert(trapezoidAreaCategoryName, std::move(createTrapezoidAreaMathFunctionsSpinBoxes()));
     mathFunctionsSpinBoxes->insert(trapezoidPerimeterCategoryName, std::move(createTrapezoidPerimeterMathFunctionsSpinBoxes()));
 
     mathFunctionsLabels = std::make_shared<QMap<QString, QList<QLabel *>>>();
 
-    mathFunctionsLabels->insert(squareCategoryName, std::move(createSquareMathFunctionsLabels()));
-    mathFunctionsLabels->insert(rectangleCategoryName, std::move(createRectangleMathFunctionsLabels()));
+    mathFunctionsLabels->insert(squareAreaCategoryName, std::move(createSquareAreaPerimeterMathFunctionsLabels()));
+    mathFunctionsLabels->insert(squarePerimeterCategoryName, std::move(createSquareAreaPerimeterMathFunctionsLabels()));
+    mathFunctionsLabels->insert(rectangleAreaCategoryName, std::move(createRectangleAreaPerimeterMathFunctionsLabels()));
+    mathFunctionsLabels->insert(rectanglePerimeterCategoryName, std::move(createRectangleAreaPerimeterMathFunctionsLabels()));
     mathFunctionsLabels->insert(trapezoidAreaCategoryName, std::move(createTrapezoidAreaMathFunctionsLabels()));
     mathFunctionsLabels->insert(trapezoidPerimeterCategoryName, std::move(createTrapezoidPerimeterMathFunctionsLabels()));
 }
 
-QList<QDoubleSpinBox *> AppOne::createSquareMathFunctionsSpinBoxes()
+QList<QDoubleSpinBox *> AppOne::createSquareAreaPerimeterMathFunctionsSpinBoxes()
 {
     QList<QDoubleSpinBox *> squareInputs;
 
@@ -131,7 +135,7 @@ QList<QDoubleSpinBox *> AppOne::createSquareMathFunctionsSpinBoxes()
     return squareInputs;
 }
 
-QList<QDoubleSpinBox *> AppOne::createRectangleMathFunctionsSpinBoxes()
+QList<QDoubleSpinBox *> AppOne::createRectangleAreaPerimeterMathFunctionsSpinBoxes()
 {
     QList<QDoubleSpinBox *> rectangleInputs;
 
@@ -191,7 +195,7 @@ QList<QDoubleSpinBox *> AppOne::createTrapezoidPerimeterMathFunctionsSpinBoxes()
     return trapezoidPerimeterInputs;
 }
 
-QList<QLabel *> AppOne::createSquareMathFunctionsLabels()
+QList<QLabel *> AppOne::createSquareAreaPerimeterMathFunctionsLabels()
 {
     QList<QLabel *> squareLabels;
 
@@ -204,7 +208,7 @@ QList<QLabel *> AppOne::createSquareMathFunctionsLabels()
     return squareLabels;
 }
 
-QList<QLabel *> AppOne::createRectangleMathFunctionsLabels()
+QList<QLabel *> AppOne::createRectangleAreaPerimeterMathFunctionsLabels()
 {
     QList<QLabel *> rectangleLabels;
 
@@ -320,28 +324,39 @@ void AppOne::comboBoxItemChanged(int const index) const
 {
     switch (index) {
     case 0:
-        areaOfSquareClicked();
+        mathFunctionClicked(squareAreaCategoryName);
         break;
     case 1:
-        perimeterOfSquareClicked();
+        mathFunctionClicked(squarePerimeterCategoryName);
         break;
     case 2:
-        areaOfRectangleClicked();
+        mathFunctionClicked(rectangleAreaCategoryName);
         break;
     case 3:
-        perimeterOfRectangleClicked();
+        mathFunctionClicked(rectanglePerimeterCategoryName);
         break;
     case 4:
-        areaOfTrapezoidClicked();
+        mathFunctionClicked(trapezoidAreaCategoryName);
         break;
     case 5:
-        perimeterOfTrapezoidClicked();
+        mathFunctionClicked(trapezoidPerimeterCategoryName);
         break;
     default:
         break;
     }
 
     mathFunctionResultCalc();
+}
+
+void AppOne::mathFunctionClicked(QString const &mathFunctionCategory) const
+{
+    QString msg {mathFunctionCategory + " clicked"};
+
+    statusBar()->showMessage(msg, 3000);
+    logOut(std::move(msg));
+
+    hideAllItems();
+    showMathFunctionCategoryItems(mathFunctionCategory);
 }
 
 void AppOne::mathFunctionResultCalc() const
@@ -370,75 +385,9 @@ void AppOne::mathFunctionResultCalc() const
     }
 }
 
-void AppOne::areaOfSquareClicked() const
-{
-    QString msg {"areaOfSquare clicked"};
-
-    statusBar()->showMessage(msg, 3000);
-    logOut(std::move(msg));
-
-    hideAllItems();
-    showAllSquareItems();
-}
-
-void AppOne::perimeterOfSquareClicked() const
-{
-    QString msg {"permitOfSquare clicked"};
-
-    statusBar()->showMessage(msg, 3000);
-    logOut(std::move(msg));
-
-    hideAllItems();
-    showAllSquareItems();
-}
-
-void AppOne::areaOfRectangleClicked() const
-{
-    QString msg {"areaOfRectangle clicked"};
-
-    statusBar()->showMessage(msg, 3000);
-    logOut(std::move(msg));
-
-    hideAllItems();
-    showAllRectangleItems();
-}
-
-void AppOne::perimeterOfRectangleClicked() const
-{
-    QString msg {"permitOfRectangle clicked"};
-
-    statusBar()->showMessage(msg, 3000);
-    logOut(std::move(msg));
-
-    hideAllItems();
-    showAllRectangleItems();
-}
-
-void AppOne::areaOfTrapezoidClicked() const
-{
-    QString msg {"areaOfTrapezoid clicked"};
-
-    statusBar()->showMessage(msg, 3000);
-    logOut(std::move(msg));
-
-    hideAllItems();
-    showAllTrapezoidAreaItems();
-}
-
-void AppOne::perimeterOfTrapezoidClicked() const
-{
-    QString msg {"perimeterOfTrapezoid clicked"};
-
-    statusBar()->showMessage(msg, 3000);
-    logOut(std::move(msg));
-
-    hideAllItems();
-    showAllTrapezoidPerimeterItems();
-}
-
 void AppOne::calculateSquareArea() const
 {
-    double squareLength {mathFunctionsSpinBoxes->value("squares").at(0)->value()};
+    double squareLength {mathFunctionsSpinBoxes->value(squareAreaCategoryName).at(0)->value()};
 
     double squareArea {libIncludeHelper::areaOfSquare(squareLength)};
 
@@ -447,7 +396,7 @@ void AppOne::calculateSquareArea() const
 
 void AppOne::calculateSquarePerimeter() const
 {
-    double squareLength {mathFunctionsSpinBoxes->value("squares").at(0)->value()};
+    double squareLength {mathFunctionsSpinBoxes->value(squarePerimeterCategoryName).at(0)->value()};
 
     double squarePermit {libIncludeHelper::perimeterOfSquare(squareLength)};
 
@@ -457,8 +406,8 @@ void AppOne::calculateSquarePerimeter() const
 
 void AppOne::calculateRectangleArea() const
 {
-    double rectangleLength {mathFunctionsSpinBoxes->value("rectangles").at(0)->value()};
-    double rectangleWidth {mathFunctionsSpinBoxes->value("rectangles").at(1)->value()};
+    double rectangleLength {mathFunctionsSpinBoxes->value(rectangleAreaCategoryName).at(0)->value()};
+    double rectangleWidth {mathFunctionsSpinBoxes->value(rectangleAreaCategoryName).at(1)->value()};
 
     double rectangleArea {libIncludeHelper::areaOfRectangle(std::move(rectangleLength), std::move(rectangleWidth))};
 
@@ -467,8 +416,8 @@ void AppOne::calculateRectangleArea() const
 
 void AppOne::calculateRectanglePerimeter() const
 {
-    double rectangleLength {mathFunctionsSpinBoxes->value("rectangles").at(0)->value()};
-    double rectangleWidth {mathFunctionsSpinBoxes->value("rectangles").at(1)->value()};
+    double rectangleLength {mathFunctionsSpinBoxes->value(rectanglePerimeterCategoryName).at(0)->value()};
+    double rectangleWidth {mathFunctionsSpinBoxes->value(rectanglePerimeterCategoryName).at(1)->value()};
 
     double rectanglePerimeter {libIncludeHelper::perimeterOfRectangle(std::move(rectangleLength), std::move(rectangleWidth))};
 
@@ -477,9 +426,9 @@ void AppOne::calculateRectanglePerimeter() const
 
 void AppOne::calculateTrapezoidArea() const
 {
-    double trapezoidAreaLongBase {mathFunctionsSpinBoxes->value("trapezoidArea").at(0)->value()};
-    double trapezoidAreaShortBase {mathFunctionsSpinBoxes->value("trapezoidArea").at(1)->value()};
-    double trapezoidAreaHeight {mathFunctionsSpinBoxes->value("trapezoidArea").at(2)->value()};
+    double trapezoidAreaLongBase {mathFunctionsSpinBoxes->value(trapezoidAreaCategoryName).at(0)->value()};
+    double trapezoidAreaShortBase {mathFunctionsSpinBoxes->value(trapezoidAreaCategoryName).at(1)->value()};
+    double trapezoidAreaHeight {mathFunctionsSpinBoxes->value(trapezoidAreaCategoryName).at(2)->value()};
 
     double trapezoidArea {libIncludeHelper::areaOfTrapezoid(std::move(trapezoidAreaLongBase),
                                                                  std::move(trapezoidAreaShortBase),
@@ -490,10 +439,10 @@ void AppOne::calculateTrapezoidArea() const
 
 void AppOne::calculateTrapezoidPerimeter() const
 {
-    double trapezoidPerimeterLongBase {mathFunctionsSpinBoxes->value("trapezoidPerimeter").at(0)->value()};
-    double trapezoidPerimeterShortBase {mathFunctionsSpinBoxes->value("trapezoidPerimeter").at(1)->value()};
-    double trapezoidPerimeterSideA {mathFunctionsSpinBoxes->value("trapezoidPerimeter").at(2)->value()};
-    double trapezoidPerimeterSideB {mathFunctionsSpinBoxes->value("trapezoidPerimeter").at(3)->value()};
+    double trapezoidPerimeterLongBase {mathFunctionsSpinBoxes->value(trapezoidPerimeterCategoryName).at(0)->value()};
+    double trapezoidPerimeterShortBase {mathFunctionsSpinBoxes->value(trapezoidPerimeterCategoryName).at(1)->value()};
+    double trapezoidPerimeterSideA {mathFunctionsSpinBoxes->value(trapezoidPerimeterCategoryName).at(2)->value()};
+    double trapezoidPerimeterSideB {mathFunctionsSpinBoxes->value(trapezoidPerimeterCategoryName).at(3)->value()};
 
     double trapezoidPerimeter {libIncludeHelper::perimeterOfTrapezoid(std::move(trapezoidPerimeterLongBase),
                                                                       std::move(trapezoidPerimeterShortBase),
@@ -518,46 +467,13 @@ void AppOne::hideAllItems() const
     }
 }
 
-void AppOne::showAllSquareItems() const
+void AppOne::showMathFunctionCategoryItems(const QString &mathFunctionCategory) const
 {
-    for (QDoubleSpinBox * const &input : mathFunctionsSpinBoxes->value("squares")) {
+    for (QDoubleSpinBox * const &input : mathFunctionsSpinBoxes->value(mathFunctionCategory)) {
         input->show();
     }
 
-    for (QLabel * const &input : mathFunctionsLabels->value("squares")) {
-        input->show();
-    }
-}
-
-void AppOne::showAllRectangleItems() const
-{
-    for (QDoubleSpinBox * const &input : mathFunctionsSpinBoxes->value("rectangles")) {
-        input->show();
-    }
-
-    for (QLabel * const &input : mathFunctionsLabels->value("rectangles")) {
-        input->show();
-    }
-}
-
-void AppOne::showAllTrapezoidAreaItems() const
-{
-    for (QDoubleSpinBox * const &input : mathFunctionsSpinBoxes->value("trapezoidArea")) {
-        input->show();
-    }
-
-    for (QLabel * const &input : mathFunctionsLabels->value("trapezoidArea")) {
-        input->show();
-    }
-}
-
-void AppOne::showAllTrapezoidPerimeterItems() const
-{
-    for (QDoubleSpinBox * const &input : mathFunctionsSpinBoxes->value("trapezoidPerimeter")) {
-        input->show();
-    }
-
-    for (QLabel * const &input : mathFunctionsLabels->value("trapezoidPerimeter")) {
+    for (QLabel * const &input : mathFunctionsLabels->value(mathFunctionCategory)) {
         input->show();
     }
 }

@@ -31,6 +31,13 @@ private slots:
     void mathFunctionResultCalc() const;
 
 private:
+    QString squareAreaCategoryName;
+    QString squarePerimeterCategoryName;
+    QString rectangleAreaCategoryName;
+    QString rectanglePerimeterCategoryName;
+    QString trapezoidAreaCategoryName;
+    QString trapezoidPerimeterCategoryName;
+
     QAction *helpAction;
     QAction *aboutAction;
     QAction *quitAction;
@@ -44,23 +51,21 @@ private:
 
     void createMathFunctionsNames() const;
     void createMathFunctionsInputs();
-    QList<QDoubleSpinBox *> createSquareMathFunctionsSpinBoxes();
-    QList<QDoubleSpinBox *> createRectangleMathFunctionsSpinBoxes();
+
+    QList<QDoubleSpinBox *> createSquareAreaPerimeterMathFunctionsSpinBoxes();
+    QList<QDoubleSpinBox *> createRectangleAreaPerimeterMathFunctionsSpinBoxes();
     QList<QDoubleSpinBox *> createTrapezoidAreaMathFunctionsSpinBoxes();
     QList<QDoubleSpinBox *> createTrapezoidPerimeterMathFunctionsSpinBoxes();
-    QList<QLabel *> createSquareMathFunctionsLabels();
-    QList<QLabel *> createRectangleMathFunctionsLabels();
+
+    QList<QLabel *> createSquareAreaPerimeterMathFunctionsLabels();
+    QList<QLabel *> createRectangleAreaPerimeterMathFunctionsLabels();
     QList<QLabel *> createTrapezoidAreaMathFunctionsLabels();
     QList<QLabel *> createTrapezoidPerimeterMathFunctionsLabels();
+
     void createMathFunctionsSignals() const;
     void createMenuActions() const;
 
-    void areaOfSquareClicked() const;
-    void perimeterOfSquareClicked() const;
-    void areaOfRectangleClicked() const;
-    void perimeterOfRectangleClicked() const;
-    void areaOfTrapezoidClicked() const;
-    void perimeterOfTrapezoidClicked() const;
+    void mathFunctionClicked(QString const &) const;
 
     void calculateSquareArea() const;
     void calculateSquarePerimeter() const;
@@ -70,10 +75,7 @@ private:
     void calculateTrapezoidPerimeter() const;
 
     void hideAllItems() const;
-    void showAllSquareItems() const;
-    void showAllRectangleItems() const;
-    void showAllTrapezoidAreaItems() const;
-    void showAllTrapezoidPerimeterItems() const;
+    void showMathFunctionCategoryItems(QString const &) const;
 };
 
 #endif // APPONE_H
