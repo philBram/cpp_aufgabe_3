@@ -17,6 +17,9 @@ public:
 
     static double areaOfTrapezoid(double const, double const, double const);
     static double perimeterOfTrapezoid(double const, double const, double const, double const);
+
+    static double surfaceAreaOfCuboid(double const, double const, double const);
+    static double volumeOfCuboid(double const, double const, double const);
 };
 
 #endif // LIBINCLUDEHELPER_H

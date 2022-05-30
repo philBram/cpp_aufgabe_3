@@ -37,6 +37,8 @@ private:
     QString rectanglePerimeterCategoryName;
     QString trapezoidAreaCategoryName;
     QString trapezoidPerimeterCategoryName;
+    QString cuboidSurfaceAreaCategoryName;
+    QString cuboidVolumeCategoryName;
 
     QAction *helpAction;
     QAction *aboutAction;
@@ -52,20 +54,23 @@ private:
     void createMathFunctionsNames() const;
     void createMathFunctionsInputs();
 
-    QList<QDoubleSpinBox *> createSquareAreaPerimeterMathFunctionsSpinBoxes();
-    QList<QDoubleSpinBox *> createRectangleAreaPerimeterMathFunctionsSpinBoxes();
-    QList<QDoubleSpinBox *> createTrapezoidAreaMathFunctionsSpinBoxes();
-    QList<QDoubleSpinBox *> createTrapezoidPerimeterMathFunctionsSpinBoxes();
+    QList<QDoubleSpinBox *> createSquareAreaPerimeterMathFunctionSpinBoxes();
+    QList<QDoubleSpinBox *> createRectangleAreaPerimeterMathFunctionSpinBoxes();
+    QList<QDoubleSpinBox *> createTrapezoidAreaMathFunctionSpinBoxes();
+    QList<QDoubleSpinBox *> createTrapezoidPerimeterMathFunctionSpinBoxes();
+    QList<QDoubleSpinBox *> createCuboidSurfaceAreaVolumeMathFunctionSpinBoxes();
 
-    QList<QLabel *> createSquareAreaPerimeterMathFunctionsLabels();
-    QList<QLabel *> createRectangleAreaPerimeterMathFunctionsLabels();
-    QList<QLabel *> createTrapezoidAreaMathFunctionsLabels();
-    QList<QLabel *> createTrapezoidPerimeterMathFunctionsLabels();
+    QList<QLabel *> createSquareAreaPerimeterMathFunctionLabels();
+    QList<QLabel *> createRectangleAreaPerimeterMathFunctionLabels();
+    QList<QLabel *> createTrapezoidAreaMathFunctionLabels();
+    QList<QLabel *> createTrapezoidPerimeterMathFunctionLabels();
+    QList<QLabel *> createCuboidSurfaceAreaVolumeMathFunctionLabels();
 
     void createMathFunctionsSignals() const;
     void createMenuActions() const;
 
     void mathFunctionClicked(QString const &) const;
+    void mathFunctionClicked(int const) const;
 
     void calculateSquareArea() const;
     void calculateSquarePerimeter() const;
@@ -73,9 +78,12 @@ private:
     void calculateRectanglePerimeter() const;
     void calculateTrapezoidArea() const;
     void calculateTrapezoidPerimeter() const;
+    void calculateCuboidSurfaceArea() const;
+    void calculateCuboidVolume() const;
 
     void hideAllItems() const;
     void showMathFunctionCategoryItems(QString const &) const;
+    void showMathFunctionCategoryItems(int const) const;
 };
 
 #endif // APPONE_H

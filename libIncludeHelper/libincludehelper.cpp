@@ -36,3 +36,13 @@ double libIncludeHelper::perimeterOfTrapezoid(const double longBase, const doubl
 {
     return MathFormulas::perimeterOfTrapezoid(longBase, shortBase, sideA, sideB);
 }
+
+double libIncludeHelper::surfaceAreaOfCuboid(const double height, const double length, const double depth)
+{
+    return MathFormulas::surfaceAreaOfCuboid(height, length, depth);
+}
+
+double libIncludeHelper::volumeOfCuboid(const double height, const double length, const double depth)
+{
+    return MathFormulas::volumeOfCuboid(height, length, depth);
+}

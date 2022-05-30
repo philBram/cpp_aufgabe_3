@@ -178,7 +178,7 @@ namespace formulas {
     }
 
     //Formulas of Hemisphere
-    double MathFormulas::curvedSurfaceAreaOfHimsphere(const double radius)
+    double MathFormulas::curvedSurfaceAreaOfHemisphere(const double radius)
     {
         return 4.0 * M_PI * std::pow(radius, 2.0);
     }
