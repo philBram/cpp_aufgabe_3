@@ -66,15 +66,6 @@ private:
     void mathFunctionClicked(QString const &) const;
     void mathFunctionClicked(int const) const;
 
-    /*void calculateSquareArea() const;
-    void calculateSquarePerimeter() const;
-    void calculateRectangleArea() const;
-    void calculateRectanglePerimeter() const;
-    void calculateTrapezoidArea() const;
-    void calculateTrapezoidPerimeter() const;
-    void calculateCuboidSurfaceArea() const;
-    void calculateCuboidVolume() const;*/
-
     void hideAllItems() const;
     void showMathFunctionCategoryItems(QString const &) const;
     void showMathFunctionCategoryItems(int const) const;

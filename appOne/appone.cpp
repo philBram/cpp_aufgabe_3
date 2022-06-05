@@ -9,7 +9,7 @@
 
 AppOne::AppOne(QWidget *parent)
     : QMainWindow{parent},
-      QStringLogger{"AppOne"},
+      QStringLogger{"MathCalc"},
       squareAreaCategoryName {"squaresArea"},
       squarePerimeterCategoryName {"squaresPerimeter"},
       rectangleAreaCategoryName {"rectanglesArea"},

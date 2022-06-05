@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "appOne/appone.h"
+#include "appTwo/apptwo.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QStatusBar>
@@ -9,20 +10,20 @@
 #include <QFont>
 #include <QTimer>
 #include <QMessageBox>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       QStringLogger{"MainWindow"},
       appOneName{"MathCalc"},
-      appTwoName{"appTwo"},
-      appTreeName{"appTree"}
+      appTwoName{"NumInfo"}
 {
     logOut("app opened");
 
     QString appInfoText {"This application is intended to be as versatile as possible by providing all kinds of different apps."};
 
     QString fontFamily {"Time"};
-    int fontSize {18};
+    int fontSize {14};
 
     QString appMenuName {"Apps"};
     QString helpMenuName {"Help"};
@@ -32,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
     QString updatesName {"Check for Updates"};
     QString quitName {"Quit"};
 
+    QPushButton *button {new QPushButton(this)};
+    button->setText("hello");
+    button->show();
+
     QFont qFont;
     qFont.setBold(true);
     qFont.setFamily(std::move(fontFamily));
@@ -40,12 +45,12 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *infoTextBrowser {new QTextBrowser(this)};
     dynamic_cast<QTextBrowser *>(infoTextBrowser)->setText(std::move(appInfoText));
     dynamic_cast<QTextBrowser *>(infoTextBrowser)->setFont(std::move(qFont));
+    dynamic_cast<QTextBrowser *>(infoTextBrowser)->setAlignment(Qt::AlignCenter);
 
     setCentralWidget(infoTextBrowser);
 
     appOneAction = new QAction(this);
     appTwoAction = new QAction(this);
-    appTreeAction = new QAction(this);
 
     helpAction = new QAction(this);
     aboutAction = new QAction(this);
@@ -54,7 +59,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     appOneAction->setText(std::move(appOneName));
     appTwoAction->setText(std::move(appTwoName));
-    appTreeAction->setText(std::move(appTreeName));
 
     helpAction->setText(std::move(helpName));
     aboutAction->setText(std::move(aboutName));
@@ -66,7 +70,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     appsMenu->addAction(appOneAction);
     appsMenu->addAction(appTwoAction);
-    appsMenu->addAction(appTreeAction);
 
     helpMenu->addAction(helpAction);
     helpMenu->addAction(aboutAction);
@@ -84,7 +87,6 @@ MainWindow::~MainWindow()
 void MainWindow::createMenuActions() const {
     connect(appOneAction, &QAction::triggered, this, &MainWindow::appOneClicked);
     connect(appTwoAction, &QAction::triggered, this, &MainWindow::appTwoClicked);
-    connect(appTreeAction, &QAction::triggered, this, &MainWindow::appTreeClicked);
 
     connect(helpAction, &QAction::triggered, this, &MainWindow::helpClicked);
     connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutClicked);
@@ -93,7 +95,7 @@ void MainWindow::createMenuActions() const {
 }
 
 QSize MainWindow::sizeHint() const {
-    return QSize(500, 500);
+    return QSize(600, 600);
 }
 
 void MainWindow::appOneClicked()
@@ -115,13 +117,12 @@ void MainWindow::appTwoClicked()
     QString logMsg {appTwoName + " clicked"};
 
     detailsOutMsg(std::move(logMsg));
-}
 
-void MainWindow::appTreeClicked()
-{
-    QString logMsg {appTreeName + " clicked"};
+    AppTwo *app {new AppTwo(this)};
 
-    detailsOutMsg(std::move(logMsg));
+    app->setWindowTitle(appTwoName);
+    app->setAttribute(Qt::WA_DeleteOnClose);
+    app->show();
 }
 
 void MainWindow::helpClicked() const

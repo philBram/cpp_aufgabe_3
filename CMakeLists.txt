@@ -11,8 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -32,6 +32,9 @@ set(PROJECT_SOURCES
         appOne/calculatemathfunctions.h
         libIncludeHelper/libincludehelper.cpp
         libIncludeHelper/libincludehelper.h
+        appTwo/apptwo.cpp
+        appTwo/apptwo.h
+        appTwo/apptwo.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -60,7 +63,7 @@ endif()
 add_subdirectory(formulasLib)
 include_directories(formulasLib)
 
-target_link_libraries(Versuch_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets formulasLib)
+target_link_libraries(Versuch_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets formulasLib Qt${QT_VERSION_MAJOR}::Network)
 
 set_target_properties(Versuch_3 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
