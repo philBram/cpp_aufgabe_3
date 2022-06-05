@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "appOne/appone.h"
+#include "appTwo/apptwo.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QStatusBar>
@@ -115,6 +116,13 @@ void MainWindow::appTwoClicked()
     QString logMsg {appTwoName + " clicked"};
 
     detailsOutMsg(std::move(logMsg));
+
+    AppTwo *app {new AppTwo(this)};
+
+    app->setWindowTitle(appTwoName);
+    app->setAttribute(Qt::WA_DeleteOnClose);
+    app->setFixedSize(500, 500);
+    app->show();
 }
 
 void MainWindow::appTreeClicked()

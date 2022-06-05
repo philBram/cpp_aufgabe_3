@@ -32,6 +32,9 @@ set(PROJECT_SOURCES
         appOne/calculatemathfunctions.h
         libIncludeHelper/libincludehelper.cpp
         libIncludeHelper/libincludehelper.h
+        appTwo/apptwo.cpp
+        appTwo/apptwo.h
+        appTwo/apptwo.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
