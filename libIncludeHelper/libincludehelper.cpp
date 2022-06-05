@@ -27,6 +27,16 @@ double libIncludeHelper::perimeterOfRectangle(const double length, const double 
     return MathFormulas::perimeterOfRectangle(length, width);
 }
 
+double libIncludeHelper::areaOfCircle(const double radius)
+{
+    return MathFormulas::areaOfCircle(radius);
+}
+
+double libIncludeHelper::perimeterOfCircle(const double radius)
+{
+    return MathFormulas::perimeterOfCircle(radius);
+}
+
 double libIncludeHelper::areaOfTrapezoid(const double longBase, const double shortBase, const double height)
 {
     return MathFormulas::areaOfTrapezoid(longBase, shortBase, height);

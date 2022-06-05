@@ -8,6 +8,7 @@
 #include <QPalette>
 #include <QFont>
 #include <QTimer>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -128,6 +129,15 @@ void MainWindow::helpClicked() const
     QString logMsg {"help clicked"};
 
     detailsOutMsg(std::move(logMsg));
+
+    QMessageBox help;
+
+    help.setWindowTitle("Help");
+    help.setText("Choose a app you want to open under 'Apps'");
+    help.setIcon(QMessageBox::Information);
+    help.setStandardButtons(QMessageBox::Ok);
+
+    help.exec();
 }
 
 void MainWindow::aboutClicked() const
@@ -135,6 +145,15 @@ void MainWindow::aboutClicked() const
     QString logMsg {"about clicked"};
 
     detailsOutMsg(std::move(logMsg));
+
+    QMessageBox about;
+
+    about.setWindowTitle("Help");
+    about.setText("This application is intended to be as versatile as possible by providing all kinds of different apps.");
+    about.setIcon(QMessageBox::Question);
+    about.setStandardButtons(QMessageBox::Ok);
+
+    about.exec();
 }
 
 void MainWindow::updatesClicked() const {

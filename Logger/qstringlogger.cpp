@@ -10,7 +10,7 @@ QStringLogger::QStringLogger(QString &&initalMsg, QString &&filePath):
 }
 
 void QStringLogger::logOut(QString &&logMsg) const {
-    QFile file {std::move(this->filePath)};
+    QFile file {this->filePath};
     QString logOutMsg {QDateTime::currentDateTime().toString() + ":  " + initalMsg + ": " + logMsg};
 
     qDebug() << logOutMsg;

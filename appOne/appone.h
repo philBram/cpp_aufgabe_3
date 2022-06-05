@@ -3,6 +3,8 @@
 
 #include "Logger/qstringlogger.h"
 #include "formulasLib/mathFormulas.h"
+#include "mathfunctionelements.h"
+#include "calculatemathfunctions.h"
 #include <QMainWindow>
 #include <QAction>
 #include <QComboBox>
@@ -13,7 +15,9 @@
 
 class AppOne :
         public QMainWindow,
-        public QStringLogger
+        public QStringLogger,
+        public MathFunctionElements,
+        public CalculateMathFunctions
 {
     Q_OBJECT
 public:
@@ -35,6 +39,8 @@ private:
     QString squarePerimeterCategoryName;
     QString rectangleAreaCategoryName;
     QString rectanglePerimeterCategoryName;
+    QString circleAreaCategoryName;
+    QString circlePerimeterCategoryName;
     QString trapezoidAreaCategoryName;
     QString trapezoidPerimeterCategoryName;
     QString cuboidSurfaceAreaCategoryName;
@@ -48,23 +54,11 @@ private:
 
     QLabel *mathFunctionResult;
 
-    std::shared_ptr<QMap<QString, QList<QDoubleSpinBox *>>> mathFunctionsSpinBoxes;
-    std::shared_ptr<QMap<QString, QList<QLabel *>>> mathFunctionsLabels;
+    QMap<QString, QList<QDoubleSpinBox *>> mathFunctionsSpinBoxes;
+    QMap<QString, QList<QLabel *>> mathFunctionsLabels;
 
     void createMathFunctionsNames() const;
     void createMathFunctionsInputs();
-
-    QList<QDoubleSpinBox *> createSquareAreaPerimeterMathFunctionSpinBoxes();
-    QList<QDoubleSpinBox *> createRectangleAreaPerimeterMathFunctionSpinBoxes();
-    QList<QDoubleSpinBox *> createTrapezoidAreaMathFunctionSpinBoxes();
-    QList<QDoubleSpinBox *> createTrapezoidPerimeterMathFunctionSpinBoxes();
-    QList<QDoubleSpinBox *> createCuboidSurfaceAreaVolumeMathFunctionSpinBoxes();
-
-    QList<QLabel *> createSquareAreaPerimeterMathFunctionLabels();
-    QList<QLabel *> createRectangleAreaPerimeterMathFunctionLabels();
-    QList<QLabel *> createTrapezoidAreaMathFunctionLabels();
-    QList<QLabel *> createTrapezoidPerimeterMathFunctionLabels();
-    QList<QLabel *> createCuboidSurfaceAreaVolumeMathFunctionLabels();
 
     void createMathFunctionsSignals() const;
     void createMenuActions() const;
@@ -72,14 +66,14 @@ private:
     void mathFunctionClicked(QString const &) const;
     void mathFunctionClicked(int const) const;
 
-    void calculateSquareArea() const;
+    /*void calculateSquareArea() const;
     void calculateSquarePerimeter() const;
     void calculateRectangleArea() const;
     void calculateRectanglePerimeter() const;
     void calculateTrapezoidArea() const;
     void calculateTrapezoidPerimeter() const;
     void calculateCuboidSurfaceArea() const;
-    void calculateCuboidVolume() const;
+    void calculateCuboidVolume() const;*/
 
     void hideAllItems() const;
     void showMathFunctionCategoryItems(QString const &) const;

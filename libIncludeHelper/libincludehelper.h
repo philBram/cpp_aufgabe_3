@@ -15,6 +15,9 @@ public:
     static double areaOfRectangle(double const, double const);
     static double perimeterOfRectangle(double const, double const);
 
+    static double areaOfCircle(double const);
+    static double perimeterOfCircle(double const);
+
     static double areaOfTrapezoid(double const, double const, double const);
     static double perimeterOfTrapezoid(double const, double const, double const, double const);
 
