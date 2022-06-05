@@ -15,8 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       QStringLogger{"MainWindow"},
       appOneName{"MathCalc"},
-      appTwoName{"appTwo"},
-      appTreeName{"appTree"}
+      appTwoName{"NumInfo"}
 {
     logOut("app opened");
 
@@ -46,7 +45,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     appOneAction = new QAction(this);
     appTwoAction = new QAction(this);
-    appTreeAction = new QAction(this);
 
     helpAction = new QAction(this);
     aboutAction = new QAction(this);
@@ -55,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     appOneAction->setText(std::move(appOneName));
     appTwoAction->setText(std::move(appTwoName));
-    appTreeAction->setText(std::move(appTreeName));
 
     helpAction->setText(std::move(helpName));
     aboutAction->setText(std::move(aboutName));
@@ -67,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     appsMenu->addAction(appOneAction);
     appsMenu->addAction(appTwoAction);
-    appsMenu->addAction(appTreeAction);
 
     helpMenu->addAction(helpAction);
     helpMenu->addAction(aboutAction);
@@ -85,7 +81,6 @@ MainWindow::~MainWindow()
 void MainWindow::createMenuActions() const {
     connect(appOneAction, &QAction::triggered, this, &MainWindow::appOneClicked);
     connect(appTwoAction, &QAction::triggered, this, &MainWindow::appTwoClicked);
-    connect(appTreeAction, &QAction::triggered, this, &MainWindow::appTreeClicked);
 
     connect(helpAction, &QAction::triggered, this, &MainWindow::helpClicked);
     connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutClicked);
@@ -121,15 +116,7 @@ void MainWindow::appTwoClicked()
 
     app->setWindowTitle(appTwoName);
     app->setAttribute(Qt::WA_DeleteOnClose);
-    app->setFixedSize(500, 500);
     app->show();
-}
-
-void MainWindow::appTreeClicked()
-{
-    QString logMsg {appTreeName + " clicked"};
-
-    detailsOutMsg(std::move(logMsg));
 }
 
 void MainWindow::helpClicked() const

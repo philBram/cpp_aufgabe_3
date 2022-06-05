@@ -17,7 +17,6 @@ public:
 private slots:
     void appOneClicked();
     void appTwoClicked();
-    void appTreeClicked();
     void helpClicked() const;
     void aboutClicked() const;
     void updatesClicked() const;
@@ -26,13 +25,11 @@ private slots:
 private:
     QString appOneName;
     QString appTwoName;
-    QString appTreeName;
 
     QSize sizeHint() const override;
 
     QAction *appOneAction;
     QAction *appTwoAction;
-    QAction *appTreeAction;
 
     QAction *helpAction;
     QAction *aboutAction;
