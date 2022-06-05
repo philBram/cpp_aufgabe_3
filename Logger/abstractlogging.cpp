@@ -2,7 +2,8 @@
 #include <QString>
 
 template <typename T>
-AbstractLogging<T>::AbstractLogging(T &&initalMsg): initalMsg{initalMsg}
+AbstractLogging<T>::AbstractLogging(T &&initalMsg, T &&filePath):
+    initalMsg{initalMsg}, filePath{filePath}
 {
 }
 

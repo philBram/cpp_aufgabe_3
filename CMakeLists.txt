@@ -24,6 +24,14 @@ set(PROJECT_SOURCES
         Logger/qstringlogger.h
         Logger/stringlogger.cpp
         Logger/stringlogger.h
+        appOne/appone.cpp
+        appOne/appone.h
+        appOne/mathfunctionelements.cpp
+        appOne/mathfunctionelements.h
+        appOne/calculatemathfunctions.cpp
+        appOne/calculatemathfunctions.h
+        libIncludeHelper/libincludehelper.cpp
+        libIncludeHelper/libincludehelper.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

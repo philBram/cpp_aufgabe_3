@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "mathFormulas.h"
+#include "appOne/appone.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QStatusBar>
@@ -8,13 +8,12 @@
 #include <QPalette>
 #include <QFont>
 #include <QTimer>
-
-using namespace formulas;
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       QStringLogger{"MainWindow"},
-      appOneName{"appOne"},
+      appOneName{"MathCalc"},
       appTwoName{"appTwo"},
       appTreeName{"appTree"}
 {
@@ -62,19 +61,19 @@ MainWindow::MainWindow(QWidget *parent)
     updatesAction->setText(std::move(updatesName));
     quitAction->setText(std::move(quitName));
 
-    QMenu *apps {this->menuBar()->addMenu(std::move(appMenuName))};
-    QMenu *help {this->menuBar()->addMenu(helpMenuName)};
+    QMenu *appsMenu {this->menuBar()->addMenu(std::move(appMenuName))};
+    QMenu *helpMenu {this->menuBar()->addMenu(helpMenuName)};
 
-    apps->addAction(appOneAction);
-    apps->addAction(appTwoAction);
-    apps->addAction(appTreeAction);
+    appsMenu->addAction(appOneAction);
+    appsMenu->addAction(appTwoAction);
+    appsMenu->addAction(appTreeAction);
 
-    help->addAction(helpAction);
-    help->addAction(aboutAction);
-    help->addAction(updatesAction);
-    help->addAction(quitAction);
+    helpMenu->addAction(helpAction);
+    helpMenu->addAction(aboutAction);
+    helpMenu->addAction(updatesAction);
+    helpMenu->addAction(quitAction);
 
-    createActions();
+    createMenuActions();
 }
 
 MainWindow::~MainWindow()
@@ -82,7 +81,7 @@ MainWindow::~MainWindow()
     logOut("app closed");
 }
 
-void MainWindow::createActions() const {
+void MainWindow::createMenuActions() const {
     connect(appOneAction, &QAction::triggered, this, &MainWindow::appOneClicked);
     connect(appTwoAction, &QAction::triggered, this, &MainWindow::appTwoClicked);
     connect(appTreeAction, &QAction::triggered, this, &MainWindow::appTreeClicked);
@@ -97,58 +96,70 @@ QSize MainWindow::sizeHint() const {
     return QSize(500, 500);
 }
 
-void MainWindow::appOneClicked() const
+void MainWindow::appOneClicked()
 {
     QString logMsg {appOneName + " clicked"};
-    QMainWindow *appOne {new QMainWindow};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
 
-    appOne->setWindowTitle(appOneName);
-    appOne->setAttribute(Qt::WA_DeleteOnClose);
-    appOne->setFixedSize(500, 500);
-    appOne->show();
+    AppOne *app {new AppOne(this)};
+
+    app->setWindowTitle(appOneName);
+    app->setAttribute(Qt::WA_DeleteOnClose);
+    app->setFixedSize(500, 500);
+    app->show();
 }
 
-void MainWindow::appTwoClicked() const
+void MainWindow::appTwoClicked()
 {
     QString logMsg {appTwoName + " clicked"};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
 }
 
-void MainWindow::appTreeClicked() const
+void MainWindow::appTreeClicked()
 {
     QString logMsg {appTreeName + " clicked"};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
 }
 
 void MainWindow::helpClicked() const
 {
     QString logMsg {"help clicked"};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
+
+    QMessageBox help;
+
+    help.setWindowTitle("Help");
+    help.setText("Choose a app you want to open under 'Apps'");
+    help.setIcon(QMessageBox::Information);
+    help.setStandardButtons(QMessageBox::Ok);
+
+    help.exec();
 }
 
 void MainWindow::aboutClicked() const
 {
     QString logMsg {"about clicked"};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
 
+    QMessageBox about;
+
+    about.setWindowTitle("Help");
+    about.setText("This application is intended to be as versatile as possible by providing all kinds of different apps.");
+    about.setIcon(QMessageBox::Question);
+    about.setStandardButtons(QMessageBox::Ok);
+
+    about.exec();
 }
 
 void MainWindow::updatesClicked() const {
     QString logMsg {"checking for updates..."};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
 
     QTimer::singleShot(3200, this, &MainWindow::checkForUpdates);
 };
@@ -156,6 +167,15 @@ void MainWindow::updatesClicked() const {
 void MainWindow::checkForUpdates() const {
     QString logMsg {"no updates available"};
 
-    statusBar()->showMessage(logMsg, 3000);
-    logOut(std::move(logMsg));
+    detailsOutMsg(std::move(logMsg));
+}
+
+void MainWindow::detailsOutMsg(QString &&msg) const {
+    statusBar()->showMessage(msg, 3000);
+    logOut(std::move(msg));
+}
+
+void MainWindow::detailsOutMsg() const {
+    statusBar()->showMessage(logOut(), 3000);
+    qDebug() << logOut();
 }

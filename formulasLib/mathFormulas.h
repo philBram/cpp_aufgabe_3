@@ -68,7 +68,7 @@ namespace formulas {
         static double circumferenceOfSphere(double const);
 
         //Formulas of Hemisphere
-        static double curvedSurfaceAreaOfHimsphere(double const);
+        static double curvedSurfaceAreaOfHemisphere(double const);
         static double totalSurfaceAreaOfHemisphere(double const);
         static double volumeOfHemisphere(double const);
 
