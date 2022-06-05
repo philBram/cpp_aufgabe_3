@@ -8,7 +8,6 @@ AppTwo::AppTwo(QWidget *parent) :
     QMainWindow(parent),
     QStringLogger{"NumInfo"},
     netManager {new QNetworkAccessManager(this)},
-    netReply {nullptr},
     dataBuffer {std::make_shared<QByteArray>()},
     ui(new Ui::AppTwo)
 {
@@ -140,4 +139,3 @@ QSize AppTwo::sizeHint() const
 {
     return QSize(500, 500);
 }
-
