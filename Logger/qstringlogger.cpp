@@ -9,6 +9,24 @@ QStringLogger::QStringLogger(QString &&initalMsg, QString &&filePath):
 {
 }
 
+QStringLogger QStringLogger::operator+(const QStringLogger &qStringLogger)
+{
+    QString msg {"added QStringLogger: " + qStringLogger.initalMsg};
+    return QStringLogger(std::move(msg));
+}
+
+QStringLogger QStringLogger::operator-(const QStringLogger &qStringLogger)
+{
+    QString msg {"substracted QStringLogger: " + qStringLogger.initalMsg};
+    return QStringLogger(std::move(msg));
+}
+
+QStringLogger QStringLogger::operator*(const QStringLogger &qStringLogger)
+{
+    QString msg {"multiplied QStringLogger: " + qStringLogger.initalMsg};
+    return QStringLogger(std::move(msg));
+}
+
 void QStringLogger::logOut(QString &&logMsg) const {
     QFile file {this->filePath};
     QString logOutMsg {QDateTime::currentDateTime().toString() + ":  " + initalMsg + ": " + logMsg};

@@ -11,6 +11,10 @@ class QStringLogger:
 public:
     explicit QStringLogger(QString &&, QString &&filePath="logOut.log");
 
+    QStringLogger operator+(QStringLogger const &qStringLogger);
+    QStringLogger operator-(QStringLogger const &qStringLogger);
+    QStringLogger operator*(QStringLogger const &qStringLogger);
+
     void logOut(QString &&) const override;
     void logOut(QString &&, QString &&) const override;
     QString logOut() const override;
