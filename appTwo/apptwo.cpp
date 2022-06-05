@@ -122,11 +122,22 @@ void AppTwo::getNumInfoButtonClicked()
 
 void AppTwo::getNumClearButtonClicked()
 {
+    QString msg {"getNumClear button clicked"};
+
+    statusBar()->showMessage(msg, 3000);
+    logOut(std::move(msg));
+
     ui->getNumListWidget->clear();
+    ui->getNumSpinBox->setValue(0);
 }
 
 void AppTwo::getNumRemoveButtonClicked()
 {
+    QString msg {"getNumRemove button clicked"};
+
+    statusBar()->showMessage(msg, 3000);
+    logOut(std::move(msg));
+
     QList<QListWidgetItem *> items {ui->getNumListWidget->selectedItems()};
 
     foreach (QListWidgetItem *const &item, items) {

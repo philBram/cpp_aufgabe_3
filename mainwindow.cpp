@@ -10,6 +10,7 @@
 #include <QFont>
 #include <QTimer>
 #include <QMessageBox>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -22,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     QString appInfoText {"This application is intended to be as versatile as possible by providing all kinds of different apps."};
 
     QString fontFamily {"Time"};
-    int fontSize {18};
+    int fontSize {14};
 
     QString appMenuName {"Apps"};
     QString helpMenuName {"Help"};
@@ -32,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
     QString updatesName {"Check for Updates"};
     QString quitName {"Quit"};
 
+    QPushButton *button {new QPushButton(this)};
+    button->setText("hello");
+    button->show();
+
     QFont qFont;
     qFont.setBold(true);
     qFont.setFamily(std::move(fontFamily));
@@ -40,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *infoTextBrowser {new QTextBrowser(this)};
     dynamic_cast<QTextBrowser *>(infoTextBrowser)->setText(std::move(appInfoText));
     dynamic_cast<QTextBrowser *>(infoTextBrowser)->setFont(std::move(qFont));
+    dynamic_cast<QTextBrowser *>(infoTextBrowser)->setAlignment(Qt::AlignCenter);
 
     setCentralWidget(infoTextBrowser);
 
@@ -89,7 +95,7 @@ void MainWindow::createMenuActions() const {
 }
 
 QSize MainWindow::sizeHint() const {
-    return QSize(500, 500);
+    return QSize(600, 600);
 }
 
 void MainWindow::appOneClicked()
