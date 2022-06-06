@@ -11,19 +11,19 @@ QStringLogger::QStringLogger(QString &&initalMsg, QString &&filePath):
 
 QStringLogger QStringLogger::operator+(const QStringLogger &qStringLogger)
 {
-    QString msg {"added QStringLogger: " + qStringLogger.initalMsg};
+    QString msg {"added QStringLogger: " + this->initalMsg + qStringLogger.initalMsg};
     return QStringLogger(std::move(msg));
 }
 
 QStringLogger QStringLogger::operator-(const QStringLogger &qStringLogger)
 {
-    QString msg {"substracted QStringLogger: " + qStringLogger.initalMsg};
+    QString msg {"substracted QStringLogger: " + this->initalMsg + qStringLogger.initalMsg};
     return QStringLogger(std::move(msg));
 }
 
 QStringLogger QStringLogger::operator*(const QStringLogger &qStringLogger)
 {
-    QString msg {"multiplied QStringLogger: " + qStringLogger.initalMsg};
+    QString msg {"multiplied QStringLogger: " + this->initalMsg + qStringLogger.initalMsg};
     return QStringLogger(std::move(msg));
 }
 
